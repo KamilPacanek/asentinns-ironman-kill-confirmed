@@ -1,5 +1,6 @@
 --[[
 	Asentinn's Ironman: Kill Confirmed v1.0
+	https://github.com/KamilPacanek/asentinns-ironman-kill-confirmed
 
 	Description:
 	Extends gameplay loop for Ironman mode for S.T.A.L.K.E.R. Anomaly.
@@ -8,13 +9,11 @@
 	Developed and tested only on Escape From Pripyat modpack.
 --]] -- Internals
 local config = {
-    debug = true
+    debug = false
 }
 
 local function log_debug(text)
-    if config.debug then
-        utils_data.debug_write("+ IronKC: " .. text)
-    end
+    printdbg("+ IronKC: " .. text)
 end
 
 local function get_time_elapsed()
@@ -33,38 +32,35 @@ local function get_time_elapsed()
 end
 
 local function read_stats()
-    if db.actor then
-        log_debug("Survived: " .. get_time_elapsed())
-        log_debug("Rank: " .. db.actor:character_rank())
-        log_debug("Money: " .. db.actor:money() .. " RU")
-        flush()
+    log_debug("read_stats")
+    if db.actor and IsHardcoreMode() then
+        local msg =
+            "Survived: " .. get_time_elapsed() .. "\\nRank: \n " .. db.actor:character_rank() .. " \\nMoney: " ..
+                db.actor:money() .. " RU"
+        news_manager.send_tip(db.actor, msg, 0, nil, 20000)
+        actor_menu.set_msg(1, "The Zone is watching..", 1)
+        printf(msg)
     end
 end
 
-local function on_game_load()
-    log_debug("Game loaded.")
-end
-
 local function actor_on_before_death()
-    log_debug("Your knowledge of the Zone won't be wasted..")
+    log_debug("actor_on_before_death")
     read_stats()
 end
 
-local function actor_on_first_update()
-    log_debug("Player created.")
-end
-
-local function onKeyPress(dik)
+local function on_key_press(dik)
     if dik == DIK_keys.DIK_NUMPAD9 then
-        actor_menu.set_msg(1, "1 message 2", 2)
-        news_manager.send_tip(db.actor, get_time_elapsed(), 0, nil, 1500)
+        log_debug("on_key_press")
+        read_stats()
     end
 end
 
 -- Game callbacks
 function on_game_start()
-    log_debug("Asentinn's Ironman: Kill Confirmed loaded. No skill issues so far..")
-    RegisterScriptCallback("on_game_load", on_game_load)
+    log_debug("on_game_start")
     RegisterScriptCallback("actor_on_before_death", actor_on_before_death)
-    RegisterScriptCallback("actor_on_first_update", actor_on_first_update)
+
+    if DEV_DEBUG then
+        RegisterScriptCallback("on_key_press", on_key_press)
+    end
 end
