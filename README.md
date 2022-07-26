@@ -4,15 +4,15 @@
 
 # Description
 
-You start your fresh Ironman run. Hit some great stuff in the boxes, found shotgun on the bandit, survived your first day. Time goes by, you feel more confident and started to behave bit more careless until.. boom headshot. Your dead. Save got deleted and what you've left with is your body laying with a *friendly greetings* message.
+You started your fresh Ironman run. Got Emergency Armor Repair Set from box, found shotgun on the bandit, survived your first day. Time goes by, you feel more confident and started to behave bit more careless until.. boom headshot. You're dead. Save got deleted and what you've left with is your body laying with a *friendly greetings* message.
 
-Have you ever have a "fuck, did I do better than last time" moment? I did. A lot. I was lacking the possibility to open that PDA once again to see how long have I surived, how much money I've got, maybe how much repuration I have accumulated.
+Have you ever had a "fuck, did I even get better at this" moment? I did. I do. I was lacking the possibility to open that PDA once again to see how long have I surived, how much money I've got, maybe how much reputation I have accumulated.
 
-With the **Ironman: Kill Confirmed** you'll get clean run summary right from your PDA, so you can take a screenshot or just have a mental note of how well did your run go. And if you get back to the main menu, you can still preview the values in the console (`~`).
+With the **Ironman: Kill Confirmed** you'll get clean run summary as a PDA notification, so you can take a screenshot or just have a mental note of how well did your run go. (*and if you get back to the main menu, you can still preview the values in the console (`~`)*).
 
 # Features
 
-* Shows time survived, current money and repuration earned after player dies
+* Shows time survived, current money and reputation earned after you die
 
 # Installation
 
@@ -22,7 +22,7 @@ Download the latest release version and add it using the MO2. It should appear s
 
 **v1.0**
 * Initial release
-* Shows time survived, current money and repuration earned after player dies
+* Shows time survived, current money and reputation earned after you die
 
 # Contributing and roadmap
 
