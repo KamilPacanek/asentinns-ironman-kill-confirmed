@@ -31,13 +31,17 @@ local function getTimeElapsed()
     return string.format("%d %s", seconds / 60 / 60 / 24, game.translate_string("ui_st_days"))
 end
 
+local function getPlayerFaction()
+    local original = "actor_" .. get_actor_true_community()
+
+    return utils_xml.get_special_txt(original)
 end
 
 local function readStats()
     logDebug("readStats")
     if db.actor and IsHardcoreMode() then
         local msg = "Survived: " .. getTimeElapsed() .. "\\nRank: " .. db.actor:character_rank() .. " (" ..
-                        ")" .. "\\nMoney: " .. db.actor:money() .. " RU"
+                        getPlayerFaction() .. ")" .. "\\nMoney: " .. db.actor:money() .. " RU"
         news_manager.send_tip(db.actor, msg, 0, nil, 20000)
         actor_menu.set_msg(1, "The Zone is watching..", 1)
         printf(msg)
