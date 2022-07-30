@@ -12,11 +12,11 @@ local config = {
     debug = false
 }
 
-local function log_debug(text)
+local function logDebug(text)
     printdbg("+ IronKC: " .. text)
 end
 
-local function get_time_elapsed()
+local function getTimeElapsed()
     local s_time = level.get_start_time()
     local seconds = tonumber(game.get_game_time():diffSec(s_time))
 
@@ -31,33 +31,37 @@ local function get_time_elapsed()
     return string.format("%d %s", seconds / 60 / 60 / 24, game.translate_string("ui_st_days"))
 end
 
-local function read_stats()
-    log_debug("read_stats")
+end
+
+local function readStats()
+    logDebug("readStats")
     if db.actor and IsHardcoreMode() then
-        local msg =
-            "Survived: " .. get_time_elapsed() .. "\\nRank: \n " .. db.actor:character_rank() .. " \\nMoney: " ..
-                db.actor:money() .. " RU"
+        local msg = "Survived: " .. getTimeElapsed() .. "\\nRank: " .. db.actor:character_rank() .. " (" ..
+                        ")" .. "\\nMoney: " .. db.actor:money() .. " RU"
         news_manager.send_tip(db.actor, msg, 0, nil, 20000)
         actor_menu.set_msg(1, "The Zone is watching..", 1)
         printf(msg)
     end
 end
 
+-- Callback handlers
+
 local function actor_on_before_death()
-    log_debug("actor_on_before_death")
-    read_stats()
+    logDebug("actor_on_before_death")
+    readStats()
 end
 
 local function on_key_press(dik)
     if dik == DIK_keys.DIK_NUMPAD9 then
-        log_debug("on_key_press")
-        read_stats()
+        logDebug("on_key_press")
+        readStats()
     end
 end
 
 -- Game callbacks
+
 function on_game_start()
-    log_debug("on_game_start")
+    logDebug("on_game_start")
     RegisterScriptCallback("actor_on_before_death", actor_on_before_death)
 
     if DEV_DEBUG then
