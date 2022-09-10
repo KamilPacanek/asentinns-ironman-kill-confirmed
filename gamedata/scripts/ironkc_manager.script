@@ -48,6 +48,19 @@ local function readStats()
     end
 end
 
+local function getCompletedAchievements()
+    -- Patriarch = Folk Hero
+    local supportedAchievements = {"artificer_eagerness", "down_to_earth", "geologist", "heavy_pockets", "infopreneur",
+                                   "infantile_pleasure", "patriarch", "radiotherapy", "rag_and_bone", "recycler",
+                                   "silver_or_lead", "unforeseen_guest", "well_dressed"}
+
+    for a in pairs(supportedAchievements) do
+        if (has_achievement(a)) then
+            logDebug(a .. " achieved")
+        end
+    end
+end
+
 -- Callback handlers
 
 local function actor_on_before_death()
@@ -56,9 +69,14 @@ local function actor_on_before_death()
 end
 
 local function on_key_press(dik)
+    logDebug("on_key_press")
+
     if dik == DIK_keys.DIK_NUMPAD9 then
-        logDebug("on_key_press")
         readStats()
+    elseif dik == DIK_keys.DIK_NUMPAD8 then
+        getCompletedAchievements()
+    elseif dik == DIK_keys.DIK_NUMPAD7 then
+
     end
 end
 
